@@ -1,0 +1,62 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Slack API for AgentCore",
+    "version": "1.0.0"
+  },
+  "servers": [{ "url": "https://slack.com/api" }],
+  "paths": {
+    "/chat.postMessage": {
+      "post": {
+        "operationId": "postMessage",
+        "summary": "メッセージ送信",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["channel", "text"],
+                "properties": {
+                  "channel": { "type": "string" },
+                  "text": { "type": "string" },
+                  "blocks": {
+                    "type": "array",
+                    "items": { "type": "object" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "成功" } },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/conversations.list": {
+      "get": {
+        "operationId": "listChannels",
+        "summary": "チャンネル一覧",
+        "parameters": [
+          {
+            "name": "types",
+            "in": "query",
+            "schema": { "type": "string", "default": "public_channel" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "default": 100 }
+          }
+        ],
+        "responses": { "200": { "description": "一覧" } },
+        "security": [{ "bearerAuth": [] }]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": { "type": "http", "scheme": "bearer" }
+    }
+  }
+}

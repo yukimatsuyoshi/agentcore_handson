@@ -1,0 +1,261 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "GitHub Issues API for AgentCore",
+    "version": "1.0.0"
+  },
+  "servers": [{ "url": "https://api.github.com" }],
+  "paths": {
+    "/search/issues": {
+      "get": {
+        "operationId": "searchIssues",
+        "summary": "Issues を検索",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["created", "updated"],
+              "default": "created"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "default": "desc"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": { "type": "integer", "default": 10 }
+          }
+        ],
+        "responses": { "200": { "description": "検索結果" } },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/repos/{owner}/{repo}/issues": {
+      "get": {
+        "operationId": "listIssues",
+        "summary": "Issues 一覧",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["open", "closed", "all"],
+              "default": "open"
+            }
+          }
+        ],
+        "responses": { "200": { "description": "一覧" } },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "post": {
+        "operationId": "createIssue",
+        "summary": "Issue 作成",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["title"],
+                "properties": {
+                  "title": { "type": "string" },
+                  "body": { "type": "string" },
+                  "labels": { "type": "array", "items": { "type": "string" } },
+                  "assignees": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "作成完了" } },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/repos/{owner}/{repo}/issues/{issue_number}": {
+      "get": {
+        "operationId": "getIssue",
+        "summary": "Issue 詳細",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "issue_number",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": { "200": { "description": "詳細" } },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "patch": {
+        "operationId": "updateIssue",
+        "summary": "Issue 更新",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "issue_number",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" },
+                  "body": { "type": "string" },
+                  "state": { "type": "string", "enum": ["open", "closed"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "更新完了" } },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/repos/{owner}/{repo}/issues/{issue_number}/comments": {
+      "post": {
+        "operationId": "addComment",
+        "summary": "コメント追加",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "issue_number",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["body"],
+                "properties": { "body": { "type": "string" } }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "コメント作成" } },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/issues": {
+      "get": {
+        "operationId": "listUserIssues",
+        "summary": "自分の Issues",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["assigned", "created", "mentioned"],
+              "default": "assigned"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["open", "closed", "all"],
+              "default": "open"
+            }
+          }
+        ],
+        "responses": { "200": { "description": "一覧" } },
+        "security": [{ "bearerAuth": [] }]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": { "type": "http", "scheme": "bearer" }
+    }
+  }
+}
