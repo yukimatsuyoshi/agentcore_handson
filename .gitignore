@@ -9,3 +9,5 @@ __pycache__/
 handson-memo.txt
 
 *config.py
+
+*user_token.txt

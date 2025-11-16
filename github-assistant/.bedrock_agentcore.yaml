@@ -11,7 +11,7 @@ agents:
     aws:
       execution_role: arn:aws:iam::605664253368:role/AmazonBedrockAgentCoreSDKRuntime-us-west-2-97912bf415
       execution_role_auto_create: false
-      account: '605664253368'
+      account: "605664253368"
       region: us-west-2
       ecr_repository: 605664253368.dkr.ecr.us-west-2.amazonaws.com/bedrock-agentcore-github_slack_assistant
       ecr_auto_create: false
@@ -30,7 +30,7 @@ agents:
     bedrock_agentcore:
       agent_id: gitHub_slack_assistant-TUpC4S6NOh
       agent_arn: arn:aws:bedrock-agentcore:us-west-2:605664253368:runtime/gitHub_slack_assistant-TUpC4S6NOh
-      agent_session_id: 72b72b47-edb5-40b2-9b1c-d9627d2e4502
+      agent_session_id: null
     codebuild:
       project_name: bedrock-agentcore-github_slack_assistant-builder
       execution_role: arn:aws:iam::605664253368:role/AmazonBedrockAgentCoreSDKCodeBuild-us-west-2-97912bf415
@@ -43,6 +43,12 @@ agents:
       event_expiry_days: 30
       first_invoke_memory_check_done: false
       was_created_by_toolkit: false
-    authorizer_configuration: null
-    request_header_configuration: null
+    authorizer_configuration:
+      customJWTAuthorizer:
+        discoveryUrl: https://cognito-idp.us-west-2.amazonaws.com/us-west-2_x9N6oDWpA/.well-known/openid-configuration
+        allowedClients:
+          - 4s1367u2170qs9jb92qss1vfku
+    request_header_configuration:
+      allowedHeaders:
+        - "Authorization"
     oauth_configuration: null

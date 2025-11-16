@@ -87,6 +87,15 @@ def invoke(payload: dict) -> dict:
     user_message = payload.get("prompt", "")
     print(f"[DEBUG] Received prompt: {user_message}")
 
+    # ★ 追加：Runtime経由のユーザー情報を確認
+    print(f"[DEBUG] Full payload: {payload}")
+    
+    # ★ 追加：環境変数の確認（Runtimeが何を渡しているか）
+    print(f"[DEBUG] Environment variables related to auth:")
+    for key in os.environ:
+        if 'AUTH' in key.upper() or 'TOKEN' in key.upper() or 'USER' in key.upper():
+            print(f"  {key}: {os.environ[key][:30] if len(os.environ[key]) > 30 else os.environ[key]}...")
+
     if not user_message:
         return {"result": "メッセージを入力してください。", "error": "EMPTY_PROMPT"}
 
