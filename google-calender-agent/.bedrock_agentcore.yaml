@@ -1,0 +1,54 @@
+default_agent: google_calender_agent
+agents:
+  google_calender_agent:
+    name: google_calender_agent
+    entrypoint: /Users/yukimatsuyoshi/private/repo/agentcore_handson/google-calender-agent/agent.py
+    deployment_type: container
+    runtime_type: null
+    platform: linux/arm64
+    container_runtime: none
+    source_path: /Users/yukimatsuyoshi/private/repo/agentcore_handson/google-calender-agent
+    aws:
+      execution_role: arn:aws:iam::605664253368:role/AmazonBedrockAgentCoreSDKRuntime-us-west-2-b1f289a045
+      execution_role_auto_create: false
+      account: '605664253368'
+      region: us-west-2
+      ecr_repository: 605664253368.dkr.ecr.us-west-2.amazonaws.com/bedrock-agentcore-google_calender_agent
+      ecr_auto_create: false
+      s3_path: null
+      s3_auto_create: false
+      network_configuration:
+        network_mode: PUBLIC
+        network_mode_config: null
+      protocol_configuration:
+        server_protocol: HTTP
+      observability:
+        enabled: true
+      lifecycle_configuration:
+        idle_runtime_session_timeout: null
+        max_lifetime: null
+    bedrock_agentcore:
+      agent_id: google_calender_agent-DHAqfj9XsV
+      agent_arn: arn:aws:bedrock-agentcore:us-west-2:605664253368:runtime/google_calender_agent-DHAqfj9XsV
+      agent_session_id: null
+    codebuild:
+      project_name: bedrock-agentcore-google_calender_agent-builder
+      execution_role: arn:aws:iam::605664253368:role/AmazonBedrockAgentCoreSDKCodeBuild-us-west-2-b1f289a045
+      source_bucket: bedrock-agentcore-codebuild-sources-605664253368-us-west-2
+    memory:
+      mode: NO_MEMORY
+      memory_id: null
+      memory_arn: null
+      memory_name: null
+      event_expiry_days: 30
+      first_invoke_memory_check_done: false
+      was_created_by_toolkit: false
+    authorizer_configuration:
+      customJWTAuthorizer:
+        discoveryUrl: https://cognito-idp.us-west-2.amazonaws.com/us-west-2_SjApgz7rX/.well-known/openid-configuration
+        allowedClients:
+        - 4bf9es7gubr0pl2haftkn16pmf
+    request_header_configuration:
+      requestHeaderAllowlist:
+      - Authorization
+    oauth_configuration: null

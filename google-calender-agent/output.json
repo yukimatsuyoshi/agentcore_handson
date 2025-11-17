@@ -1,0 +1,58 @@
+{
+    "Providers": [
+        {
+            "ProviderName": "Google",
+            "ProviderType": "Google",
+            "LastModifiedDate": "2025-11-16T17:21:05.526000+09:00",
+            "CreationDate": "2025-11-16T17:21:05.526000+09:00"
+        }
+    ]
+}
+
+{
+    "UserPoolClient": {
+        "UserPoolId": "us-west-2_SjApgz7rX",
+        "ClientName": "google-calender-agent",
+        "ClientId": "4bf9es7gubr0pl2haftkn16pmf",
+        "ClientSecret": "t7alrfjbr5hq1rl6uv9l7eqm5lss5iiqsi91lpbj03q8j4n6dpm",
+        "LastModifiedDate": "2025-11-16T18:44:10.796000+09:00",
+        "CreationDate": "2025-11-16T17:16:03.606000+09:00",
+        "RefreshTokenValidity": 5,
+        "AccessTokenValidity": 60,
+        "IdTokenValidity": 60,
+        "TokenValidityUnits": {
+            "AccessToken": "minutes",
+            "IdToken": "minutes",
+            "RefreshToken": "days"
+        },
+        "ExplicitAuthFlows": [
+            "ALLOW_REFRESH_TOKEN_AUTH",
+            "ALLOW_USER_AUTH",
+            "ALLOW_USER_SRP_AUTH"
+        ],
+        "SupportedIdentityProviders": [
+            "COGNITO",
+            "Google"
+        ],
+        "CallbackURLs": [
+            "http://localhost:3000/callback",
+            "http://localhost:8501"
+        ],
+        "LogoutURLs": [
+            "http://localhost:8501"
+        ],
+        "AllowedOAuthFlows": [
+            "code"
+        ],
+        "AllowedOAuthScopes": [
+            "email",
+            "openid",
+            "profile"
+        ],
+        "AllowedOAuthFlowsUserPoolClient": true,
+        "PreventUserExistenceErrors": "ENABLED",
+        "EnableTokenRevocation": true,
+        "EnablePropagateAdditionalUserContextData": false,
+        "AuthSessionValidity": 3
+    }
+}
